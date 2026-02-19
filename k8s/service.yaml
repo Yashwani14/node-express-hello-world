@@ -4,7 +4,7 @@ metadata:
   name: node-hello
   namespace: demo
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: node-hello
   ports:
