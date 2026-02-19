@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-hello
+  namespace: demo
+  labels:
+    app: node-hello
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-hello
+  template:
+    metadata:
+      labels:
+        app: node-hello
+    spec:
+      containers:
+        - name: node-hello
+          image: acrcreate.azurecr.io/node-hello:v1
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
