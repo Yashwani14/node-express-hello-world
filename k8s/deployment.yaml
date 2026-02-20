@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: node-hello
-          image: acrcreate.azurecr.io/node-hello:v11
+          image: acrcreate.azurecr.io/node-hello:v1
           ports:
             - containerPort: 3000
           readinessProbe:
