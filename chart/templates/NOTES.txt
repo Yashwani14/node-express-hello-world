@@ -1,0 +1,9 @@
+1. Get the application URL by running these commands:
+
+  NOTE: It may take a few minutes for resources to be ready.
+
+  Release Name: {{ .Release.Name }}
+
+  To get the service URL:
+
+  kubectl get svc --namespace {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}

@@ -1,0 +1,5 @@
+# Common Helm ignore patterns
+.DS_Store
+.git/
+*.tgz
+*.bak
