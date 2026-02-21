@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    # IMPORTANT: this must match the labels you gave your AKS runner
     runs-on: [self-hosted, aks]
 
     permissions:
@@ -21,17 +22,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ---- SonarQube: run static analysis before building the image ----
-      # If your CI runner cannot reach SONAR_HOST_URL (e.g., ClusterIP), this step will fail.
-      # Either expose Sonar via Ingress (1 public IP) or run a self-hosted runner in AKS.
+      # ---- SonarQube: run static analysis BEFORE building the image ----
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v2
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # (Optional but recommended) Block the pipeline if the Quality Gate fails
-      # This will wait for background processing in SonarQube and then mark the job pass/fail.
+      # (Optional) Block the pipeline if the Quality Gate fails
       - name: SonarQube Quality Gate
         uses: SonarSource/sonarqube-quality-gate-action@v1
         env:
