@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  url: https://98.70.221.27
+
+  dex.config: |
+    connectors:
+    - type: github
+      id: github
+      name: GitHub
+      config:
+        clientID: $argocd-oidc-secret:clientID
+        clientSecret: $argocd-oidc-secret:clientSecret
+        redirectURI: https://98.70.221.27/api/dex/callback
